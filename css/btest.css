@@ -1,0 +1,32 @@
+
+h4 {
+	text-align:center;	
+	
+}
+
+table{
+/*max-width: 900px;*/	
+margin-top:40px;
+}
+.inp{
+	
+	width:600px !important;
+	margin-top: 20px !important;
+}
+.inp.text
+{
+	display:block;
+}
+.myform
+{
+	display:block;
+	margin-bottom: -20px;
+}
+.tasktable
+{
+	font-size:14px;
+}
+.formsubmit
+{
+	margin-top:20px;
+}
