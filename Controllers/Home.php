@@ -6,19 +6,26 @@ use App;
 
 class Home extends \App\Controller
 {
-    private $labeltext = array();
+    public $labeltext = array();
     
     public function index (){  
-                
-        if (isset($_POST['a']))    
-          $this->labeltext =  App::$db->saveRecord();
-        
-        App::$db->fillLabels($this->labeltext);
         
         $page = array_key_exists('page', $_GET) ? $_GET["page"] : 1;
+                
+        if (isset($_POST['a']))    
+           if(App::$db->saveRecord($this))
+           {
+               $a=10;
+           }
+        
+        
+        
+        
         
         $result = App::$db->getRecords($page);
         $totalpages = App::$db->getTotal();
+        
+        App::$db->fillLabels($this->labeltext);
         
         return $this->render('home',[
             'result' => $result,

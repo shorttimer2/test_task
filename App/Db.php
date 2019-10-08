@@ -56,8 +56,7 @@ class Db
         else
         {
             $start = $page * 3 - 2;
-            $end = $start + 2;
-            $sql = 'SELECT * FROM task WHERE id BETWEEN '. $start .' AND ' . $end;
+            $sql = 'SELECT * FROM task WHERE id >= '. $start .' LIMIT 3 ';
             return $this->execute($sql);
         }
             
@@ -74,7 +73,7 @@ class Db
      * @return array('name'=> 'label text','email'=> 'label text','text'=>'label text')
      * 
      */
-    public function saveRecord() {
+    public function saveRecord(&$lt) {
 
         
         $name = htmlspecialchars(stripslashes($_POST['name']));
@@ -82,21 +81,27 @@ class Db
         $text = htmlspecialchars(stripslashes($_POST['text']));
         
         if(empty($_POST['email']))
-            $labelstext['email'] = "Вы не указали свой E-mail";
+            $lt->labeltext['email'] = "Вы не указали свой E-mail";
         
             elseif (!preg_match('/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,})$/i', $email))
-            $labelstext['email'] = "Вы ввели некорректный E-mail";     
+            $lt->labeltext['email'] = "Вы ввели некорректный E-mail";     
         
         if(empty($_POST['name']))
-            $labelstext['name'] = "Пожалуйста, укажите свое имя";
+            $lt->labeltext['name'] = "Пожалуйста, укажите свое имя";
        
         elseif (!preg_match("/^[а-яА-ЯёЁa-zA-Z0-9]+$/i", $name))
-            $labelstext['name'] = "Пожалуйста, введите корректно свое имя";
+            $lt->labeltext['name'] = "Пожалуйста, введите корректно свое имя";
         
         if(empty($_POST['text']))
-            $labelstext['text'] = "Пожалуйста, введите текст задачи";
+            $lt->labeltext['text'] = "Пожалуйста, введите текст задачи";
         
-        return $labelstext;
+        if(empty($lt->labeltext))
+            {
+                $sql = 'INSERT INTO `task` (`name`,`email`,`message`,`status`) VALUES ( "'. $_POST["name"] . '" , "' . $_POST["email"] . '" , "' .  $_POST["text"] . '" , "0")';
+            $this->execute($sql);
+            return true;
+            } 
+        return false;
     }
     /**
      * fill text for labels
