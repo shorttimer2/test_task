@@ -1,5 +1,5 @@
 <div class='row'>
-<div class= 'col-md-6'>
+<div class= 'col-md-6 block'>
 <h4>Задачи</h4>
 <table class="table table-striped">
   <thead>
@@ -79,10 +79,10 @@
   </ul>
 </nav>
 </div>
-<div class="col-md-6">
+<div class="col-md-6 block">
 <h4>Добавить задачу</h4>
 <div class="row">
-<div class="col-md-12">
+<div class="col-md-12" style="margin-top: 8px;">
 <form action="home" method="POST" >
 	 <label class="myform"><?php echo $labeltext['name'] ?></label>
 	 <input class='inp' type="text" name="name" <?php if(!empty($_POST['name']))echo 'value=' . $_POST['name']?> />

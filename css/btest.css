@@ -10,7 +10,7 @@ margin-top:40px;
 }
 .inp{
 	
-	width:600px !important;
+	width:100% !important;
 	margin-top: 20px !important;
 }
 .inp.text
@@ -33,4 +33,9 @@ margin-top:40px;
 .pagination
 {
 	padding-left:40px !important;
+}
+.block
+{
+	padding-left:30px !important;
+	padding-right:30px !important;
 }
