@@ -8,9 +8,15 @@ class Home extends \App\Controller
 {
     public $labeltext = array();
     
+    
     public function index (){  
         
-    $message = '';    
+    $message = '';
+    $sort= '';
+    
+    if (isset($_GET['sort'])) 
+        $sort = $_GET['sort'];
+    
     $page = array_key_exists('page', $_GET) ? $_GET["page"] : 1;
                 
     if (isset($_POST['a']))    
@@ -20,11 +26,12 @@ class Home extends \App\Controller
     App::$db->fillLabels($this->labeltext);
         
     return $this->render('home',[
-            'result' => App::$db->getRecords($page),
+            'result' => App::$db->getRecords($page,$sort),
             'totalpages'=> App::$db->getTotal(),
             'page'=> $page,
             'message' => $message,
             'labeltext' => $this->labeltext,
+            'sort' => $sort,
         ]);
         
     }

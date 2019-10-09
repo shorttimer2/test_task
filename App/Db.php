@@ -48,15 +48,44 @@ class Db
      * @param number $page
      * @return array result records
      */
-    public function getRecords($page = 1) {
+    public function getRecords($page = 1,$sort = '') {
         $limit = 3;
+        $sqlsort = '';
         
+        switch ($sort)
+        {
+            
+            case 'n0':
+            $sqlsort = ' ORDER BY name ';
+            break;
+            case 'n1':
+            $sqlsort = ' ORDER BY name DESC ';
+            break;
+            case 'e0':
+            $sqlsort = ' ORDER BY email ';
+            break;
+            case 'e1':
+            $sqlsort = ' ORDER BY email DESC ';
+            break;
+            case 's0':
+            $sqlsort = ' ORDER BY status ';
+            break;
+            case 's1':
+            $sqlsort = ' ORDER BY status DESC ';
+            break;
+        }
+       
         if($page == 1)
-            return $this->execute('SELECT * FROM task LIMIT 3');
+        {
+            $s = 'SELECT * FROM task ' . $sqlsort . 'LIMIT 0 ,3';
+            return $this->execute('SELECT * FROM task ' . $sqlsort . 'LIMIT 0 ,3' );
+        }
         else
         {
-            $start = $page * 3 - 2;
-            $sql = 'SELECT * FROM task WHERE id >= '. $start .' LIMIT 3 ';
+            $start = $page * 3 - 3;
+           // $s = 'SELECT * FROM task WHERE id >= '. $start . $sqlsort .'LIMIT 3';
+           
+            $sql = 'SELECT * FROM task ' . $sqlsort .'LIMIT '. $start . ' ,3';
             return $this->execute($sql);
         }
             

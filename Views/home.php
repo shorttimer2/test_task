@@ -5,10 +5,21 @@
   <thead>
     <tr>
       <th>#</th>
-      <th>Имя</th>
-      <th>е-mail</th>
+      <?php 
+      $namesort = 'n0';
+      if($sort == $namesort)
+          $namesort = 'n1';
+      $emailsort = 'e0';
+      if($sort == $emailsort)
+          $emailsort = 'e1';
+      $statussort = 's0';
+      if($sort == $statussort)
+          $statussort = 's1';
+      ?>
+      <th><a class="page-link" href="/index.php?page=<?= $page ?>&sort=<?= $namesort ?>">Имя</a></th>
+      <th><a class="page-link" href="/index.php?page=<?= $page ?>&sort=<?= $emailsort ?>">е-mail</a></th>    
       <th>Текст</th>
-      <th>Статус</th>
+	  <th><a class="page-link" href="/index.php?page=<?= $page ?>&sort=<?= $statussort ?>">Статус</a></th>
     </tr>
   </thead>  
   <tbody class="tasktable">
@@ -50,7 +61,7 @@
           $prevaddr = $page;
           $prevaddr--;
           echo'<li class="page-item">';
-          echo  '<a class="page-link" href="/index.php?page='. $prevaddr .'" aria-label="Previous">';
+          echo  '<a class="page-link" href="/index.php?page='. $prevaddr .'&sort='.  $sort  .'" aria-label="Previous">';
           echo '<span aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span></a></li>';
       }
 
@@ -61,7 +72,7 @@
             $active = 'active';
         else 
             $active = '';
-        echo '<li class="page-item '. $active . '"><a class="page-link" href="/index.php?page='. $i .'">'. $i . '</a></li>';
+            echo '<li class="page-item '. $active . '"><a class="page-link" href="/index.php?page='. $i .'&sort='. $sort .'">'. $i . '</a></li>';
     }
     
     if($page != --$totalpages)
@@ -69,7 +80,7 @@
         $nextaddr = $page;
         $nextaddr++;
         echo'<li class="page-item">';
-        echo  '<a class="page-link" href="/index.php?page='. $nextaddr .'" aria-label="Next">';
+        echo  '<a class="page-link" href="/index.php?page='. $nextaddr .'&sort='.  $sort  .'" aria-label="Next">';
         echo '<span aria-hidden="true">&raquo;</span><span class="sr-only">Next</span></a></li>';
     }
     
