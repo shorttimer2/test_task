@@ -16,10 +16,10 @@
       if($sort == $statussort)
           $statussort = 's1';
       ?>
-      <th><a class="page-link" href="/index.php?page=<?= $page ?>&sort=<?= $namesort ?>">Имя</a></th>
-      <th><a class="page-link" href="/index.php?page=<?= $page ?>&sort=<?= $emailsort ?>">е-mail</a></th>    
-      <th>Текст</th>
-	  <th><a class="page-link" href="/index.php?page=<?= $page ?>&sort=<?= $statussort ?>">Статус</a></th>
+      <th class="col-3"><a class="page-link" href="/index.php?page=<?= $page ?>&sort=<?= $namesort ?>">Имя</a></th>
+      <th class="col-3"><a class="page-link" href="/index.php?page=<?= $page ?>&sort=<?= $emailsort ?>">е-mail</a></th>    
+      <th class="col-3">Текст</th>
+	  <th class="col-3"><a class="page-link" href="/index.php?page=<?= $page ?>&sort=<?= $statussort ?>">Статус</a></th>
     </tr>
   </thead>  
   <tbody class="tasktable">
@@ -28,13 +28,16 @@
   for($i=$count; $i < 3;$i++)
   {
       $count++;
-      echo '<tr>
+      echo '<tr class="tline">
             <th scope="row">'. $count .'</th>';
       echo '<td>'. $result[$i]['name'] . '</td>';
       echo '<td>'. $result[$i]['email'] . '</td>';
       echo '<td>'. $result[$i]['message'] . '</td>';
       switch($result[$i]['status'])
       {
+          case 0:
+          echo '<td>Не выполнено</td>';
+          break;
           case 1:
             echo '<td>Выполнено</td>';
           break;

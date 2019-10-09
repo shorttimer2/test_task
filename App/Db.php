@@ -106,28 +106,39 @@ class Db
         $name = htmlspecialchars(stripslashes($_POST['name']));
         $email = htmlspecialchars(stripslashes($_POST['email']));
         $text = htmlspecialchars(stripslashes($_POST['text']));
+        if(isset($_POST['status']))
+            $status = $_POST['status'];
+        else 
+            $status = 0;
         
-        if(empty($_POST['email']))
+        if(empty($email))
             $lt->labeltext['email'] = "Вы не указали свой E-mail";
         
             elseif (!preg_match('/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,})$/i', $email))
             $lt->labeltext['email'] = "Вы ввели некорректный E-mail";     
         
-        if(empty($_POST['name']))
+        if(empty($name))
             $lt->labeltext['name'] = "Пожалуйста, укажите свое имя";
        
            
         elseif (!preg_match('/[a-zA-Zа-яА-ЯЁё_]+/ui', $name))
             $lt->labeltext['name'] = "Пожалуйста, введите корректно свое имя";
         
-        if(empty($_POST['text']))
+        if(empty($text))
             $lt->labeltext['text'] = "Пожалуйста, введите текст задачи";
         
         if(empty($lt->labeltext))
             {
-                $sql = 'INSERT INTO `task` (`name`,`email`,`message`,`status`) VALUES ( "'. $name . '" , "' . $email . '" , "' .  $text . '" , "0")';
-            $this->execute($sql);
-            return true;
+                $sql = 'SELECT COUNT(*) FROM `task` WHERE name="'. $name . '"';
+                $res = $this->execute($sql);
+                $lt->saveresult = $res[0][0];
+                if($lt->saveresult)
+                    $sql = 'UPDATE  `task` SET email = "' . $email .'" ,message = "'. $text .'" ,status = "'. $status . '" WHERE name="' . $name . '"';
+                else
+                    $sql = 'INSERT INTO `task` (`name`,`email`,`message`,`status`) VALUES ( "'. $name . '" , "' . $email . '" , "' .  $text . '" , "0")';
+                
+                $this->execute($sql);
+                return true;
             } 
  
         return false;

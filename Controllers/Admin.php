@@ -8,10 +8,12 @@ class Admin extends \App\Controller
 {
     public $labeltext = array();
     
+    public $saveresult = 0;
+    
     public function index (){
         
           $message = '';
-          
+              
           if (isset($_POST['lg']))
               if(!App::$db->login($this))
                   $message = 'Неверно введен логин или пароль';
@@ -49,11 +51,17 @@ class Admin extends \App\Controller
             
             if (isset($_POST['a']))
                 if(App::$db->saveRecord($this))
-                    $message = 'Запись успешно добавлена';
+                {
+                    if($this->saveresult == false)
+                        $message = 'Запись успешно добавлена';
+                    else 
+                        $message = 'Запись успешно изменена';
+                    unset($_POST);
+                }
                     
                     App::$db->fillLabels($this->labeltext);
                     
-                    return $this->render('home',[
+                    return $this->render('admin',[
                         'result' => App::$db->getRecords($page,$sort),
                         'totalpages'=> App::$db->getTotal(),
                         'page'=> $page,
