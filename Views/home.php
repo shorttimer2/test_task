@@ -41,13 +41,19 @@
 
 <nav aria-label="Page navigation">
   <ul class="pagination">
-    <li class="page-item">
-      <a class="page-link" href="#" aria-label="Previous">
-        <span aria-hidden="true">&laquo;</span>
-        <span class="sr-only">Previous</span>
-      </a>
-    </li>
-    <?php
+    
+     <!--  <a class="page-link" href="#" aria-label="Previous"> -->
+      <?php 
+
+      if($page != 1)
+      {
+          $prevaddr = $page;
+          $prevaddr--;
+          echo'<li class="page-item">';
+          echo  '<a class="page-link" href="/index.php?page='. $prevaddr .'" aria-label="Previous">';
+          echo '<span aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span></a></li>';
+      }
+
     $totalpages++;
     for($i=1;$i < $totalpages;$i++)
     {
@@ -57,14 +63,19 @@
             $active = '';
         echo '<li class="page-item '. $active . '"><a class="page-link" href="/index.php?page='. $i .'">'. $i . '</a></li>';
     }
-
+    
+    if($page != --$totalpages)
+    {
+        $nextaddr = $page;
+        $nextaddr++;
+        echo'<li class="page-item">';
+        echo  '<a class="page-link" href="/index.php?page='. $nextaddr .'" aria-label="Next">';
+        echo '<span aria-hidden="true">&raquo;</span><span class="sr-only">Next</span></a></li>';
+    }
+    
+    
     ?>
-    <li class="page-item">
-      <a class="page-link" href="#" aria-label="Next">
-        <span aria-hidden="true">&raquo;</span>
-        <span class="sr-only">Next</span>
-      </a>
-    </li>
+
   </ul>
 </nav>
 </div>
