@@ -14,10 +14,10 @@
 <header>
 <nav>
 <a id="about_button" href="/home">Главная</a>
-<a id="portfolio_button" href="/portfolio">Войти</a>
+<a id="admin_button" href="/admin">Войти</a>
 </nav>
 </header>
-<div class="main">
+<div class="container">
 <?= $body ?>
         </div>
     </body>

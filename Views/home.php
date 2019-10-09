@@ -1,5 +1,5 @@
 <div class='row'>
-<div class= 'col-md-6 block'>
+<div class= 'col-md-12 block'>
 <h4>Задачи</h4>
 <table class="table table-striped">
   <thead>
@@ -90,7 +90,7 @@
   </ul>
 </nav>
 </div>
-<div class="col-md-6 block">
+<div class="col-md-12 block">
 <h4>Добавить задачу</h4>
 <div class="row">
 <div class="col-md-12" style="margin-top: 8px;">

@@ -77,14 +77,11 @@ class Db
        
         if($page == 1)
         {
-            $s = 'SELECT * FROM task ' . $sqlsort . 'LIMIT 0 ,3';
             return $this->execute('SELECT * FROM task ' . $sqlsort . 'LIMIT 0 ,3' );
         }
         else
         {
-            $start = $page * 3 - 3;
-           // $s = 'SELECT * FROM task WHERE id >= '. $start . $sqlsort .'LIMIT 3';
-           
+            $start = $page * 3 - 3;      
             $sql = 'SELECT * FROM task ' . $sqlsort .'LIMIT '. $start . ' ,3';
             return $this->execute($sql);
         }
@@ -145,5 +142,46 @@ class Db
             $labels['email'] = 'Email';
         if(!isset($labels['text']))
             $labels['text'] = 'Текст задачи';
+    }
+    /**
+     * fill text for login labels
+     */
+    public function fillLoginlabels(&$labels) {
+        if(!isset($labels['name']))
+            $labels['name'] = 'Логин';
+        if(!isset($labels['pass']))
+            $labels['pass'] = 'Пароль';
+
+    }
+    /**
+     * check login and password
+     */
+    public function login(&$lt) {
+        
+        $name = htmlspecialchars(stripslashes($_POST['name']));
+        $pass = htmlspecialchars(stripslashes($_POST['pass']));
+
+        
+        if(empty($name))
+            $lt->labeltext['name'] = "Пожалуйста, укажите логин";
+     elseif (!preg_match('/[a-zA-Zа-яА-ЯЁё_]+/ui', $name))
+            $lt->labeltext['name'] = "Пожалуйста, введите корректно логин";
+            
+        if(empty($pass))
+                $lt->labeltext['pass'] = "Пожалуйста, введите пароль";
+        if(empty($lt->labeltext))
+        {
+        $query =  'SELECT pass FROM user WHERE name ="' . $name . '"';       
+        $userdata = $this->execute($query);
+        if(!empty($userdata))
+            {
+            if($userdata[0]['pass'] == md5($pass))
+                    return true;
+            }
+        }
+            
+            
+            
+       return false;     
     }
 }

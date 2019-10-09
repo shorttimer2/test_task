@@ -28,7 +28,13 @@ margin-top:40px;
 }
 .formsubmit
 {
-	margin-top:20px;
+	margin: 0 auto;
+	margin-top: 20px;
+    margin-right: auto;
+    margin-bottom: 0px;
+    margin-left: auto;
+	display: block;
+
 }
 .pagination
 {
