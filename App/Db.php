@@ -125,7 +125,7 @@ class Db
         
         if(empty($lt->labeltext))
             {
-                $sql = 'INSERT INTO `task` (`name`,`email`,`message`,`status`) VALUES ( "'. $_POST["name"] . '" , "' . $_POST["email"] . '" , "' .  $_POST["text"] . '" , "0")';
+                $sql = 'INSERT INTO `task` (`name`,`email`,`message`,`status`) VALUES ( "'. $name . '" , "' . $email . '" , "' .  $text . '" , "0")';
             $this->execute($sql);
             return true;
             } 

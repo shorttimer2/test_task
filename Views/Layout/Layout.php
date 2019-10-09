@@ -14,7 +14,13 @@
 <header>
 <nav>
 <a id="about_button" href="/home">Главная</a>
-<a id="admin_button" href="/admin">Войти</a>
+<?php 
+    if(!App::$auth->isAuth())
+        echo '<a id="admin_button" href="/admin">Войти</a>';
+    else 
+        echo '<a id="admin_button" href="/admin/logout">Выйти</a>';
+    ?>
+
 </nav>
 </header>
 <div class="container">

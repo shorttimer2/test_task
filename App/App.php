@@ -10,6 +10,8 @@ class App
     
     public static $kernel;
     
+    public static $auth;
+    
     public static function init()
     {
         spl_autoload_register(['static','loadClass']);
@@ -23,6 +25,7 @@ class App
         static::$router = new App\Router();
         static::$kernel = new App\Kernel();
         static::$db = new App\Db();
+        static::$auth = new App\Auth();
         
     }
     
