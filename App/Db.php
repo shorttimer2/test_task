@@ -66,7 +66,8 @@ class Db
      * @return array
      */
     public function getTotal() {
-            return $this->execute('SELECT COUNT(*) FROM `task`');
+        $totalpages = $this->execute('SELECT COUNT(*) FROM `task`');
+        return  ceil($totalpages[0][0] / 3);
     }
     /*
      * save record with validation
@@ -89,7 +90,8 @@ class Db
         if(empty($_POST['name']))
             $lt->labeltext['name'] = "Пожалуйста, укажите свое имя";
        
-        elseif (!preg_match("/^[а-яА-ЯёЁa-zA-Z0-9]+$/i", $name))
+           
+        elseif (!preg_match('/[a-zA-Zа-яА-ЯЁё_]+/ui', $name))
             $lt->labeltext['name'] = "Пожалуйста, введите корректно свое имя";
         
         if(empty($_POST['text']))
@@ -101,6 +103,7 @@ class Db
             $this->execute($sql);
             return true;
             } 
+ 
         return false;
     }
     /**

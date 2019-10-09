@@ -10,28 +10,21 @@ class Home extends \App\Controller
     
     public function index (){  
         
-        $page = array_key_exists('page', $_GET) ? $_GET["page"] : 1;
+    $message = '';    
+    $page = array_key_exists('page', $_GET) ? $_GET["page"] : 1;
                 
-        if (isset($_POST['a']))    
-           if(App::$db->saveRecord($this))
-           {
-               $a=10;
-           }
+    if (isset($_POST['a']))    
+       if(App::$db->saveRecord($this))
+            $message = 'Запись успешно добавлена';
+               
+    App::$db->fillLabels($this->labeltext);
         
-        
-        
-        
-        
-        $result = App::$db->getRecords($page);
-        $totalpages = App::$db->getTotal();
-        
-        App::$db->fillLabels($this->labeltext);
-        
-        return $this->render('home',[
-            'result' => $result,
-            'totalpages'=> ceil($totalpages[0][0] / 3),
+    return $this->render('home',[
+            'result' => App::$db->getRecords($page),
+            'totalpages'=> App::$db->getTotal(),
             'page'=> $page,
-            'labeltext' => $this->labeltext
+            'message' => $message,
+            'labeltext' => $this->labeltext,
         ]);
         
     }

@@ -92,6 +92,7 @@
 	 <textarea class='inp text' rows="5" cols="45" name="text"><?php if(!empty($_POST['text']))echo  $_POST['text']?></textarea>
      <input type="submit" class="formsubmit" name="a" value="Добавить" />  
 </form>
+<?php if($message != '') echo '<p>'.$message .'</p>'; ?>
 </div>  
 </div>
 </div>
