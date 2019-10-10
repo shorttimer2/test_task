@@ -17,21 +17,23 @@
 </head>
 <body>
 <header>
-<nav>
-
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<div class="collapse navbar-collapse" id="navbarSupportedContent">
+<ul class="navbar-nav mr-auto">
 <?php 
     if(!App::$auth->isAuth())
     {
-        echo '<a id="about_button" href="/home">Главная</a>';
-        echo '<a id="admin_button" href="/admin">Войти</a>';
+        echo '<li class="nav-item active"><a id="about_button" class="nav-link" href="/home">Главная</a></li>';
+        echo '<li><a id="admin_button" class="nav-link" href="/admin">Войти</a></li>';
     }
     else 
     {
-        echo '<a id="about_button" href="/admin/cab">Главная</a>';
-        echo '<a id="admin_button" href="/admin/logout">Выйти</a>';
+        echo '<li class="nav-item active"><a id="about_button" class="nav-link" href="/admin/cab">Главная</a></li>';
+        echo '<li><a id="admin_button" class="nav-link" href="/admin/logout">Выйти</a></li>';
     }
     ?>
-
+</ul>
+</div>
 </nav>
 </header>
 <div class="container">
