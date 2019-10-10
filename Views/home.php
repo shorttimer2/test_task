@@ -33,8 +33,9 @@
       echo '<td>'. $result[$i]['name'] . '</td>';
       echo '<td>'. $result[$i]['email'] . '</td>';
       echo '<td>'. $result[$i]['message'] . '</td>';
-      switch($result[$i]['status'])
-      {
+      if(isset($result[$i]['name']))
+        switch($result[$i]['status'])
+        {
           case 0:
           echo '<td>Не выполнено</td>';
           break;
@@ -46,18 +47,19 @@
           break;
           default:
             echo '<td></td>';
-      }
+        }
+      else 
+          echo '<td></td>';
       echo '</tr>';
   }
   ?>
   </tbody>
 </table>
-
-<nav aria-label="Page navigation">
-  <ul class="pagination">
-    
-     <!--  <a class="page-link" href="#" aria-label="Previous"> -->
-      <?php 
+<?php 
+if($totalpages > 1)
+{
+echo '<nav aria-label="Page navigation">
+  <ul class="pagination">';
 
       if($page != 1)
       {
@@ -88,10 +90,10 @@
     }
     
     
-    ?>
-
-  </ul>
-</nav>
+    echo'  </ul>
+</nav>';
+}
+?>
 </div>
 <div class="col-md-12 block">
 <h4>Добавить задачу</h4>

@@ -107,7 +107,12 @@ class Db
         $email = htmlspecialchars(stripslashes($_POST['email']));
         $text = htmlspecialchars(stripslashes($_POST['text']));
         if(isset($_POST['status']))
-            $status = $_POST['status'];
+        {
+            if(!$_POST['modify'])
+                $status = 1;
+            else 
+                $status = 2;
+        }
         else 
             $status = 0;
         

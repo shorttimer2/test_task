@@ -33,6 +33,7 @@
       echo '<td>'. $result[$i]['name'] . '</td>';
       echo '<td>'. $result[$i]['email'] . '</td>';
       echo '<td>'. $result[$i]['message'] . '</td>';
+      if(isset($result[$i]['name']))
       switch($result[$i]['status'])
       {
           case 0:
@@ -47,17 +48,20 @@
           default:
             echo '<td></td>';
       }
+      else
+          echo '<td></td>';
       echo '</tr>';
   }
   ?>
   </tbody>
 </table>
 
-<nav aria-label="Page navigation">
-  <ul class="pagination">
+<?php 
+if($totalpages > 1)
+{
+echo '<nav aria-label="Page navigation">
+  <ul class="pagination">';
     
-      <?php 
-
       if($page != 1)
       {
           $prevaddr = $page;
@@ -87,10 +91,12 @@
     }
     
     
-    ?>
 
-  </ul>
-</nav>
+
+echo'  </ul>
+</nav>';
+}
+    ?>
 </div>
 <div class="col-md-12 block">
 <h4 id="fhead">Добавить задачу</h4>
@@ -102,16 +108,18 @@
 	 <label class="myform"><?php echo $labeltext['email'] ?></label>
 	 <input class='inp' type="text" name="email" <?php if(!empty($_POST['email']))echo 'value=' . $_POST['email']?> />
 	 <label class="myform"><?php echo $labeltext['text'] ?></label>
-	 <textarea class='inp text' rows="5" cols="45" name="text"><?php if(!empty($_POST['text']))echo  $_POST['text']?></textarea>
+	 <textarea class='inp text' id="txt" rows="5" cols="45" name="text"><?php if(!empty($_POST['text']))echo  $_POST['text']?></textarea>
 	 <input type="checkbox" name="status" id="status" value="0"> Статус
      <input type="submit" class="adminform" name="a" value="Применить" />  
      <input type="reset" class="adminform" id="reset" name="reset" value="Очистить" /> 
+     <input type="hidden" id="modify" name="modify" value="0" /> 
 </form>
 <?php if($message != '') echo '<p>'.$message .'</p>'; ?>
 </div>  
 </div>
 </div>
 <script>
+$(document).ready(function(){
 	$( ".tline" ).click(function() {
 		$("input[name='name']").val($(this).find("td").eq(0).text());
 		$("input[name='email']").val($(this).find("td").eq(1).text());
@@ -128,4 +136,8 @@
 	$( "#reset" ).click(function() {
 		$("#fhead").text("Добавить задачу");
 	});
+	$('#txt').change(function(){
+        $("input[name='modify']").val("1");
+    });
+});
 </script>
